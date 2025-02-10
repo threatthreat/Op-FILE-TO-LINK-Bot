@@ -25,8 +25,13 @@ logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
 ppath = "WOODcraft/bot/plugins/*.py"
 files = glob.glob(ppath)
-AngelBot.start()
-loop = asyncio.get_event_loop()
+await AngelBot.start()
+if sys.platform.startswith('win'):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+
 
 
 async def start_services():
@@ -83,6 +88,11 @@ async def start_services():
 
 if __name__ == '__main__':
     try:
-        loop.run_until_complete(start_services())
+        async def main():
+    await AngelBot.start()
+    await start_services()
+
+loop.run_until_complete(main())
+
     except KeyboardInterrupt:
         logging.info('----------------------- Service Stopped -----------------------')
