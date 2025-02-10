@@ -88,9 +88,10 @@ async def start_services():
 
 if __name__ == '__main__':
     try:
-    loop.run_until_complete(main())
-finally:
-    loop.close()
+    loop.run_until_complete(main())  # ✅ Correct indentation
+except Exception as e:
+    print(f"Error: {e}")
+
 
 
 loop.run_until_complete(main())
