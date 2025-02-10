@@ -89,8 +89,8 @@ async def start_services():
 if __name__ == '__main__':
     try:
         async def main():
-    await AngelBot.start()
-    await start_services()
+           await AngelBot.start()
+           await start_services()
 
 loop.run_until_complete(main())
 
